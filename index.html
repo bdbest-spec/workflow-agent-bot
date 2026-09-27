@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow Agent Bot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">GitHub Actions • workflow-v1.0</p>
+      <h1>Workflow Agent Bot</h1>
+      <p class="lead">আপনার GitHub Actions workflow-এর trigger তৈরি করুন এবং YAML কপি করুন।</p>
+      <a class="source" href="https://github.com/actions/languageservices/blob/4043eda158e16579cc5fb1b0b07a4bce2a76f0b5/workflow-parser/src/workflow-v1.0.json#L62-L129" target="_blank" rel="noreferrer">Schema source দেখুন ↗</a>
+    </div>
+  </header>
+
+  <main class="container grid">
+    <section class="card builder">
+      <div class="section-heading">
+        <div><p class="eyebrow">Builder</p><h2>Trigger নির্বাচন করুন</h2></div>
+        <button id="reset" class="ghost">রিসেট</button>
+      </div>
+      <label for="event">Event</label>
+      <select id="event">
+        <option value="push">push — code push হলে</option>
+        <option value="pull_request">pull_request — pull request activity</option>
+        <option value="issues">issues — issue activity</option>
+        <option value="issue_comment">issue_comment — issue/PR comment</option>
+        <option value="schedule">schedule — নির্দিষ্ট সময়ে</option>
+        <option value="workflow_dispatch">workflow_dispatch — manual run</option>
+        <option value="workflow_call">workflow_call — reusable workflow</option>
+        <option value="workflow_run">workflow_run — অন্য workflow শেষ হলে</option>
+        <option value="pull_request_review">pull_request_review — review activity</option>
+        <option value="discussion">discussion — discussion activity</option>
+      </select>
+
+      <div id="activity-panel" class="conditional">
+        <label for="activity">Activity types <span>(ঐচ্ছিক)</span></label>
+        <select id="activity" multiple size="5"></select>
+        <small>একাধিক নির্বাচন করতে Ctrl/Cmd ধরে ক্লিক করুন।</small>
+      </div>
+
+      <div id="filters" class="conditional filters">
+        <div><label for="branches">Branches <span>(comma separated)</span></label><input id="branches" placeholder="main, develop"></div>
+        <div><label for="paths">Paths <span>(comma separated)</span></label><input id="paths" placeholder="src/**, package.json"></div>
+      </div>
+
+      <div id="cron-panel" class="conditional"><label for="cron">Cron</label><input id="cron" value="0 0 * * *" aria-label="Cron expression"></div>
+      <button id="generate" class="primary">YAML তৈরি করুন</button>
+      <p id="status" class="status" role="status"></p>
+    </section>
+
+    <section class="card preview">
+      <div class="section-heading"><div><p class="eyebrow">Output</p><h2>Generated workflow</h2></div><button id="copy" class="ghost">কপি</button></div>
+      <pre><code id="output"></code></pre>
+      <div class="tip"><strong>পরবর্তী ধাপ:</strong> এই অংশটি <code>.github/workflows/agent.yml</code> নামে সংরক্ষণ করুন।</div>
+    </section>
+  </main>
+  <footer class="container footer">Built with ❤️ for GitHub Actions automation.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
